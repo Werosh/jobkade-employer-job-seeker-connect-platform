@@ -1,138 +1,141 @@
 'use client';
 
-import { useAuth } from '@/hooks/useAuth';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function DashboardPage() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 bg-primary rounded-lg animate-pulse mx-auto mb-4"></div>
-          <p className="text-foreground">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return null;
-  }
-
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-          <p className="text-gray-600 mt-2">
-            Welcome back, {user.email}!
-          </p>
-        </div>
+    <div className="max-w-7xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-[var(--color-text)]">Dashboard</h1>
+        <p className="text-gray-600 mt-2">Welcome back! Here's what's happening with your job search.</p>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Quick Stats */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6" />
-                </svg>
+      {/* Quick Actions */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <Card className="text-center">
+          <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <svg className="w-6 h-6 text-[var(--color-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-[var(--color-text)] mb-2">Find Jobs</h3>
+          <p className="text-gray-600 text-sm mb-4">Browse available positions</p>
+          <Link href="/jobs/find">
+            <Button variant="primary" size="sm" className="w-full">
+              Search Jobs
+            </Button>
+          </Link>
+        </Card>
+
+        <Card className="text-center">
+          <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <svg className="w-6 h-6 text-[var(--color-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-[var(--color-text)] mb-2">Post a Job</h3>
+          <p className="text-gray-600 text-sm mb-4">Hire talented professionals</p>
+          <Link href="/dashboard/post-job">
+            <Button variant="secondary" size="sm" className="w-full">
+              Post Job
+            </Button>
+          </Link>
+        </Card>
+
+        <Card className="text-center">
+          <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <svg className="w-6 h-6 text-[var(--color-accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-[var(--color-text)] mb-2">My Applications</h3>
+          <p className="text-gray-600 text-sm mb-4">Track your applications</p>
+          <Link href="/dashboard/applications">
+            <Button variant="accent" size="sm" className="w-full">
+              View Applications
+            </Button>
+          </Link>
+        </Card>
+
+        <Card className="text-center">
+          <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-[var(--color-text)] mb-2">My Jobs</h3>
+          <p className="text-gray-600 text-sm mb-4">Manage your job postings</p>
+          <Link href="/dashboard/jobs">
+            <Button variant="primary" size="sm" className="w-full">
+              Manage Jobs
+            </Button>
+          </Link>
+        </Card>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card>
+          <h2 className="text-xl font-semibold text-[var(--color-text)] mb-4">Recent Job Applications</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div>
+                <h3 className="font-medium text-[var(--color-text)]">Frontend Developer</h3>
+                <p className="text-sm text-gray-600">TechCorp Inc.</p>
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Applications Sent</p>
-                <p className="text-2xl font-semibold text-foreground">0</p>
+              <span className="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">
+                Pending
+              </span>
+            </div>
+            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div>
+                <h3 className="font-medium text-[var(--color-text)]">UX Designer</h3>
+                <p className="text-sm text-gray-600">Design Studio</p>
               </div>
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
+                Reviewed
+              </span>
             </div>
           </div>
+          <div className="mt-4">
+            <Link href="/dashboard/applications">
+              <Button variant="primary" size="sm" className="w-full">
+                View All Applications
+              </Button>
+            </Link>
+          </div>
+        </Card>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Interviews</p>
-                <p className="text-2xl font-semibold text-foreground">0</p>
-              </div>
+        <Card>
+          <h2 className="text-xl font-semibold text-[var(--color-text)] mb-4">Job Posting Stats</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-gray-600">Total Jobs Posted</span>
+              <span className="font-semibold text-[var(--color-text)]">12</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-gray-600">Active Jobs</span>
+              <span className="font-semibold text-[var(--color-text)]">8</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-gray-600">Total Applications</span>
+              <span className="font-semibold text-[var(--color-text)]">156</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-gray-600">This Month</span>
+              <span className="font-semibold text-[var(--color-text)]">23</span>
             </div>
           </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Profile Views</p>
-                <p className="text-2xl font-semibold text-foreground">0</p>
-              </div>
-            </div>
+          <div className="mt-4">
+            <Link href="/dashboard/jobs">
+              <Button variant="secondary" size="sm" className="w-full">
+                Manage Jobs
+              </Button>
+            </Link>
           </div>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold text-foreground mb-4">Recent Activity</h2>
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="text-center py-8">
-              <svg className="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
-              <p className="text-gray-500">No recent activity</p>
-              <p className="text-sm text-gray-400 mt-1">Start applying to jobs to see your activity here</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold text-foreground mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a
-              href="/jobs"
-              className="bg-primary text-white p-6 rounded-lg hover:bg-primary/90 transition-colors duration-200"
-            >
-              <div className="flex items-center">
-                <svg className="w-8 h-8 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <div>
-                  <h3 className="text-lg font-semibold">Find Jobs</h3>
-                  <p className="text-primary-100">Browse available positions</p>
-                </div>
-              </div>
-            </a>
-
-            <a
-              href="/profile"
-              className="bg-secondary text-white p-6 rounded-lg hover:bg-secondary/90 transition-colors duration-200"
-            >
-              <div className="flex items-center">
-                <svg className="w-8 h-8 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <div>
-                  <h3 className="text-lg font-semibold">Update Profile</h3>
-                  <p className="text-secondary-100">Complete your profile</p>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

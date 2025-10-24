@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "JobKade - Find Your Dream Job",
@@ -18,9 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="min-h-screen flex flex-col">
         <Navbar />
-        <main>{children}</main>
+        <main className="flex-1 container mx-auto px-4 py-8">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
